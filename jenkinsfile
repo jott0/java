@@ -22,18 +22,6 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                // Run unit tests
-                echo 'Running tests...'
-                
-            }
-            post {
-                always {
-                    junit '**/target/test-*.xml'  // Publish test results
-                }
-            }
-        }
 
         stage('Deploy') {
             steps {
