@@ -8,26 +8,29 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/jott0/java.git'
+                git branch: 'main', url: 'https://github.com/YOUR_USERNAME/simple-java-app.git'
             }
         }
 
         stage('Build') {
             steps {
-                echo 'Building the project...'
-                sh 'javac calc.java'
+                echo 'Compiling Java source...'
+                sh 'mkdir -p build'
+                sh 'javac -d build src/Main.java'
             }
         }
 
-        stage('Deploy') {
+        stage('Run') {
             steps {
-                echo 'Deploying the application...'
+                echo 'Running Java application...'
+                sh 'java -cp build Main'
             }
         }
 
         stage('Cleanup') {
             steps {
-                echo 'Cleaning up...'
+                echo 'Cleaning up build artifacts...'
+                sh 'rm -rf build'
             }
         }
     }
@@ -35,8 +38,6 @@ pipeline {
     post {
         always {
             echo 'Pipeline completed.'
-            echo 'Output from Java file:'
-            sh 'java -cp build calc' // Replace 'Main' with your actual class name if different
         }
         success {
             echo 'Pipeline finished successfully!'
