@@ -1,0 +1,67 @@
+pipeline {
+    agent any
+
+    environment {
+        // Define any environment variables if needed
+        MY_ENV_VAR = 'example_value'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the source code from the repository
+                git 'https://github.com/jott0/java.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Compile your code or build the project
+                echo 'Building the project...'
+                sh 'mvn clean install'  // Example command for Maven-based Java projects
+            }
+        }
+
+        stage('Test') {
+            steps {
+                // Run unit tests
+                echo 'Running tests...'
+                sh 'mvn test'  // Example command for running Maven tests
+            }
+            post {
+                always {
+                    junit '**/target/test-*.xml'  // Publish test results
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                // Deploy to a staging or production environment
+                echo 'Deploying the application...'
+                sh './deploy.sh'  // Example deployment script
+            }
+        }
+
+        stage('Cleanup') {
+            steps {
+                // Clean up build artifacts (optional)
+                echo 'Cleaning up...'
+                sh 'mvn clean'
+            }
+        }
+    }
+
+    post {
+        always {
+            // Notify or take action after the pipeline completes
+            echo 'Pipeline completed.'
+        }
+        success {
+            echo 'Pipeline finished successfully!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}
