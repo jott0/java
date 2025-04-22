@@ -3,7 +3,8 @@ pipeline {
     tools {
         jdk 'JDK 21'
     }
-
+    environment {
+        PATH = "$(tool 'JDK 21')/bin::$(env.Path)"
     stages {
         stage('Checkout') {
             steps {
