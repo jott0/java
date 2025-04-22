@@ -36,7 +36,7 @@ pipeline {
         always {
             echo 'Pipeline completed.'
             echo 'Output from Java file:'
-            sh 'java -cp build Main' // Replace 'Main' with your actual class name if different
+            sh 'java -cp build calc' // Replace 'Main' with your actual class name if different
         }
         success {
             echo 'Pipeline finished successfully!'
