@@ -19,7 +19,7 @@ pipeline {
         stage('Run') {
             steps {
                 echo 'Running Java application...'
-                sh 'java Main < input.txt'
+                sh 'java Main'
             }
         }
     }
