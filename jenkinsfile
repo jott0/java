@@ -15,8 +15,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the project...'
-                sh 'mkdir -p build'
-                sh 'javac -d build *.java'
+                sh 'javac calc.java'
             }
         }
 
