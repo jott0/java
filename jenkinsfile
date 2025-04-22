@@ -18,7 +18,7 @@ pipeline {
             steps {
                 // Compile your code or build the project
                 echo 'Building the project...'
-                sh 'mvn clean install'  // Example command for Maven-based Java projects
+            
             }
         }
 
@@ -26,7 +26,7 @@ pipeline {
             steps {
                 // Run unit tests
                 echo 'Running tests...'
-                sh 'mvn test'  // Example command for running Maven tests
+                
             }
             post {
                 always {
@@ -39,7 +39,7 @@ pipeline {
             steps {
                 // Deploy to a staging or production environment
                 echo 'Deploying the application...'
-                sh './deploy.sh'  // Example deployment script
+    
             }
         }
 
@@ -47,7 +47,7 @@ pipeline {
             steps {
                 // Clean up build artifacts (optional)
                 echo 'Cleaning up...'
-                sh 'mvn clean'
+
             }
         }
     }
