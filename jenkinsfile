@@ -2,48 +2,42 @@ pipeline {
     agent any
 
     environment {
-        // Define any environment variables if needed
         MY_ENV_VAR = 'example_value'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                // Checkout the source code from the repository
                 git branch: 'main', url: 'https://github.com/jott0/java.git'
             }
         }
 
         stage('Build') {
             steps {
-                // Compile your code or build the project
                 echo 'Building the project...'
-            
+                sh 'mkdir -p build'
+                sh 'javac -d build src/*.java'
             }
         }
 
-
         stage('Deploy') {
             steps {
-                // Deploy to a staging or production environment
                 echo 'Deploying the application...'
-    
             }
         }
 
         stage('Cleanup') {
             steps {
-                // Clean up build artifacts (optional)
                 echo 'Cleaning up...'
-
             }
         }
     }
 
     post {
         always {
-            // Notify or take action after the pipeline completes
             echo 'Pipeline completed.'
+            echo 'Output from Java file:'
+            sh 'java -cp build Main' // Replace 'Main' with your actual class name if different
         }
         success {
             echo 'Pipeline finished successfully!'
