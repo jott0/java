@@ -17,14 +17,14 @@ pipeline {
             steps {
                 echo 'Compiling Java source...'
     
-                bat 'javac Main.java'
+                sh 'javac Main.java'
             }
         }
 
         stage('Run') {
             steps {
                 echo 'Running Java application...'
-                bat 'java Main'
+                sh 'java Main'
             }
         }
     }
